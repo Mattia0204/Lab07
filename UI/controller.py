@@ -21,7 +21,10 @@ class Controller:
     # TODO
 
     # CALLBACKS DROPDOWN
-    # TODO
+    def handler_dropdown_change(self):
+        pass
 
+    def mostra_artefatti(self):
+        pass
     # AZIONE: MOSTRA ARTEFATTI
     # TODO

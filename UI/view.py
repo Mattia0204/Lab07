@@ -25,7 +25,7 @@ class View:
         self.alert.show_alert(messaggio)
 
     def set_controller(self, controller):
-        self.controller = controller
+        self._controller = controller
 
     def update(self):
         self.page.update()
@@ -36,10 +36,30 @@ class View:
         self.txt_titolo = ft.Text(value="Musei di Torino", size=38, weight=ft.FontWeight.BOLD)
 
         # --- Sezione 2: Filtraggio ---
-        # TODO
+        self._dd_museo = ft.Dropdown(label="Museo",
+                                     options=[ft.dropdown.Option("1", "*"),
+                                              ft.dropdown.Option("2", "**"),
+                                              ft.dropdown.Option("3", "***"),
+                                              ft.dropdown.Option("4", "****"),
+                                              ft.dropdown.Option("5", "*****")],
+                                     width=200,
+                                     hint_text="Seleziona museo",
+                                     on_change=self._controller.handler_dropdown_change
+                                     )
+
+        self._dd_epoca = ft.Dropdown(label="Epoca",
+                                     options=[ft.dropdown.Option("1", "*"),
+                                              ft.dropdown.Option("2", "**"),
+                                              ft.dropdown.Option("3", "***"),
+                                              ft.dropdown.Option("4", "****"),
+                                              ft.dropdown.Option("5", "*****")],
+                                     width=200,
+                                     hint_text="Seleziona epoca",
+                                     on_change=self._controller.handler_dropdown_change
+                                     )
 
         # Sezione 3: Artefatti
-        # TODO
+        pulsante_mostra_artefatti = ft.ElevatedButton("Mostra Artefatti", on_click=self.controller.mostra_artefatti)
 
         # --- Toggle Tema ---
         self.toggle_cambia_tema = ft.Switch(label="Tema scuro", value=True, on_change=self.cambia_tema)
@@ -53,10 +73,16 @@ class View:
             ft.Divider(),
 
             # Sezione 2: Filtraggio
-            # TODO
+            ft.Row(spacing=200,
+                   controls=[self._dd_museo, self._dd_epoca],
+                   alignment=ft.MainAxisAlignment.CENTER),
+            ft.Divider(),
 
-            # Sezione 3: Artefatti
-            # TODO
+            #sezione 3: mostra artefatti
+            ft.Row(spacing=200,
+                   controls=[pulsante_mostra_artefatti],
+                   alignment=ft.MainAxisAlignment.CENTER),
+            ft.Divider(),
         )
 
         self.page.scroll = "adaptive"
