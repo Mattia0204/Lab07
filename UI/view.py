@@ -19,7 +19,7 @@ class View:
         self.alert = AlertManager(page)
 
         # Controller
-        self.controller = None
+        self._controller = None
 
     def show_alert(self, messaggio):
         self.alert.show_alert(messaggio)
@@ -51,8 +51,8 @@ class View:
                                      )
         self._controller.populate_dropdown_epoche()
         # Sezione 3: Artefatti
-        pulsante_mostra_artefatti = ft.ElevatedButton("Mostra Artefatti", on_click=self.controller.mostra_artefatti)
-
+        pulsante_mostra_artefatti = ft.ElevatedButton("Mostra Artefatti", on_click=self._controller.mostra_artefatti)
+        self.lista_artefatti = ft.ListView(expand=True, spacing=5, padding=10, auto_scroll=True)
         # --- Toggle Tema ---
         self.toggle_cambia_tema = ft.Switch(label="Tema scuro", value=True, on_change=self.cambia_tema)
 
@@ -73,6 +73,10 @@ class View:
             #sezione 3: mostra artefatti
             ft.Row(spacing=200,
                    controls=[pulsante_mostra_artefatti],
+                   alignment=ft.MainAxisAlignment.CENTER),
+
+            ft.Row(spacing=200,
+                   controls=[self.lista_artefatti],
                    alignment=ft.MainAxisAlignment.CENTER),
             ft.Divider(),
         )

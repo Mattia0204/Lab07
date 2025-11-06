@@ -14,36 +14,44 @@ class Model:
         self._artefatto_dao = ArtefattoDAO()
 
     # --- ARTEFATTI ---
-    def get_artefatti_filtrati(self, museo:str, epoca:str):
-        """Restituisce la lista di tutti gli artefatti filtrati per museo e/o epoca (filtri opzionali)."""
-        # TODO
-        artefatti = self._artefatto_dao.read_all_artefattos
-        if museo == None:
-            if epoca == None:
-                return artefatti
-            else:
-                artefatti_filtrati = []
-                if artefatti["epoca"]   == epoca:
-                    artefatti_filtrati = artefatti_filtrati.append(artefatti)
-                return artefatti_filtrati
-        else:
-            artefatti_filtrati = []
-            if artefatti["museo"] == museo:
-                artefatti_filtrati = artefatti_filtrati.append(artefatti)
-            return artefatti_filtrati
+    def get_artefatti_filtrati(self, museo: str, epoca: str):
+        artefatti = self._artefatto_dao.read_all_artefattos()
+        if museo is None and epoca is None:
+            return artefatti
+        artefatti_filtrati = []
+        musei = self._museo_dao.read_all_museums()
+        id_museo = None
+
+        for m in musei:
+            if m.nome == museo:
+                id_museo = m.id
+
+        for artefatto in artefatti:
+            if artefatto.epoca == epoca or artefatto.id_museo == id_museo:
+                artefatti_filtrati.append(artefatto)
+        return artefatti_filtrati
 
     def get_epoche(self):
-        """Restituisce la lista di tutte le epoche."""
-        # TODO
-        artefatti = self._artefatto_dao.read_all_artefattos
+        artefatti = self._artefatto_dao.read_all_artefattos()
+        if artefatti is None:
+            return []
+        epoche = []
         for artefatto in artefatti:
-            epoche = [artefatto["epoca"]]
+            if artefatto.epoca not in epoche:
+                epoche.append(artefatto.epoca)
         return epoche
 
     # --- MUSEI ---
     def get_musei(self):
-        """ Restituisce la lista di tutti i musei."""
-        # TODO
-        musei = self._museo_dao.read_all_museums
-        return musei
+        musei = self._museo_dao.read_all_museums()
+        if musei is None:
+            return []
+        nomi_musei = []
+        for museo in musei:
+            if museo.nome not in nomi_musei:
+                nomi_musei.append(museo.nome)
+        return nomi_musei
+
+
+
 
