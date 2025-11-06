@@ -37,27 +37,19 @@ class View:
 
         # --- Sezione 2: Filtraggio ---
         self._dd_museo = ft.Dropdown(label="Museo",
-                                     options=[ft.dropdown.Option("1", "*"),
-                                              ft.dropdown.Option("2", "**"),
-                                              ft.dropdown.Option("3", "***"),
-                                              ft.dropdown.Option("4", "****"),
-                                              ft.dropdown.Option("5", "*****")],
+                                     options=[],
                                      width=200,
                                      hint_text="Seleziona museo",
                                      on_change=self._controller.handler_dropdown_change
                                      )
-
+        self._controller.populate_dropdown_musei()
         self._dd_epoca = ft.Dropdown(label="Epoca",
-                                     options=[ft.dropdown.Option("1", "*"),
-                                              ft.dropdown.Option("2", "**"),
-                                              ft.dropdown.Option("3", "***"),
-                                              ft.dropdown.Option("4", "****"),
-                                              ft.dropdown.Option("5", "*****")],
+                                     options=[],
                                      width=200,
                                      hint_text="Seleziona epoca",
                                      on_change=self._controller.handler_dropdown_change
                                      )
-
+        self._controller.populate_dropdown_epoche()
         # Sezione 3: Artefatti
         pulsante_mostra_artefatti = ft.ElevatedButton("Mostra Artefatti", on_click=self.controller.mostra_artefatti)
 

@@ -18,13 +18,19 @@ class Controller:
         self.epoca_selezionata = None
 
     # POPOLA DROPDOWN
-    # TODO
+    def populate_dropdown_epoche(self):
+        epoche = self._model.get_epoche
+        self._view._dd_epoca.options = [ft.dropdown.Option(e) for e in epoche]
+
+    def populate_dropdown_musei(self):
+        musei = self._model.get_musei
+        self._view._dd_museo.options = [ft.dropdown.Option(m) for m in musei]
+
 
     # CALLBACKS DROPDOWN
     def handler_dropdown_change(self):
-        pass
+        self.mostra_artefatti()
 
     def mostra_artefatti(self):
-        pass
-    # AZIONE: MOSTRA ARTEFATTI
-    # TODO
+        artefatti = self._model.get_artefatti_filtrati()
+
