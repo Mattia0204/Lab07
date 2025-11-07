@@ -27,8 +27,12 @@ class Model:
                 id_museo = m.id
 
         for artefatto in artefatti:
-            if artefatto.epoca == epoca or artefatto.id_museo == id_museo:
-                artefatti_filtrati.append(artefatto)
+            if museo is None or epoca is None:
+                if artefatto.epoca == epoca or artefatto.id_museo == id_museo:
+                    artefatti_filtrati.append(artefatto)
+            else:
+                if artefatto.epoca == epoca and artefatto.id_museo == id_museo:
+                    artefatti_filtrati.append(artefatto)
         return artefatti_filtrati
 
     def get_epoche(self):
