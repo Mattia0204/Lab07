@@ -16,6 +16,10 @@ class Model:
     # --- ARTEFATTI ---
     def get_artefatti_filtrati(self, museo: str, epoca: str):
         artefatti = self._artefatto_dao.read_all_artefattos()
+        if museo == " ":
+            museo=None
+        if epoca == " ":
+            epoca=None
         if museo is None and epoca is None:
             return artefatti
         artefatti_filtrati = []
