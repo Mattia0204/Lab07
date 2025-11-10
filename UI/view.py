@@ -27,7 +27,7 @@ class View:
         self.alert.show_alert(messaggio)
 
     def set_controller(self, controller):
-        # Collegamento View ↔ Controller
+        # Collegamento View Controller
         self._controller = controller
 
     def update(self):

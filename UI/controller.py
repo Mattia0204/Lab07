@@ -68,13 +68,20 @@ class Controller:
 
         # Chiedo al modello la lista filtrata
         artefatti = self._model.get_artefatti_filtrati(museo, epoca)
+        if not artefatti:
+            # Svuoto la lista visibile nella view
+            self._view.lista_artefatti.controls.clear()
 
-        # Svuoto la lista visibile nella view
-        self._view.lista_artefatti.controls.clear()
+            #messaggio di aller quando filtri non producono risultato tra gli artefatti
+            self._view.alert.show_alert("I filtri applicati non trovano artefatti presenti nel database")
 
-        # Inserisco un elemento testuale per ogni artefatto filtrato
-        for a in artefatti:
-            self._view.lista_artefatti.controls.append(ft.Text(str(a)))
+        else:
+            # Svuoto la lista visibile nella view
+            self._view.lista_artefatti.controls.clear()
 
-        # Aggiorno la view
-        self._view.update()
+            # Inserisco un elemento testuale per ogni artefatto filtrato
+            for a in artefatti:
+                self._view.lista_artefatti.controls.append(ft.Text(str(a)))
+
+            # Aggiorno la view
+            self._view.update()
